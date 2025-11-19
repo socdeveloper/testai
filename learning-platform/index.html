@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добро пожаловать - Образовательная платформа</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .welcome-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .welcome-container h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+        
+        .welcome-container p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #34495e;
+        }
+        
+        .navigation {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .nav-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .nav-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .nav-card h3 {
+            margin-top: 0;
+            color: #3498db;
+        }
+        
+        .nav-card p {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <h1>Образовательная платформа</h1>
+            <ul>
+                <li><a href="welcome.html">Главная</a></li>
+                <li><a href="index.html">Технологии</a></li>
+                <li><a href="requirements.html">Требования</a></li>
+                <li><a href="tasks.html">Задания</a></li>
+                <li><a href="resources.html">Ресурсы</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <div class="welcome-container">
+            <h2>Добро пожаловать!</h2>
+            <p>Эта образовательная платформа поможет вам освоить современный стек технологий: Go, Redpanda, Reindexer, PostgreSQL и MongoDB.</p>
+            
+            <div class="navigation">
+                <a class="nav-card" href="index.html">
+                    <h3>Технологии</h3>
+                    <p>Изучите основы каждой технологии, инструкции по установке и уровни понимания</p>
+                </a>
+                
+                <a class="nav-card" href="tasks.html">
+                    <h3>Практические задания</h3>
+                    <p>Выполните задания с подсказками и решениями для закрепления знаний</p>
+                </a>
+                
+                <a class="nav-card" href="resources.html">
+                    <h3>Дополнительные ресурсы</h3>
+                    <p>Официальная документация, книги и статьи для углубленного изучения</p>
+                </a>
+            </div>
+            
+            <div style="margin-top: 2rem; padding: 1.5rem; background-color: #e8f4fd; border-radius: 8px;">
+                <h3>Как использовать эту платформу:</h3>
+                <ol style="text-align: left; max-width: 600px; margin: 1rem auto;">
+                    <li>Начните с изучения технологий на странице "Технологии"</li>
+                    <li>Пройдите уровни понимания для каждой технологии</li>
+                    <li>Выполните практические задания для закрепления навыков</li>
+                    <li>Используйте дополнительные ресурсы для углубленного изучения</li>
+                    <li>Возвращайтесь к материалам по мере необходимости</li>
+                </ol>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <p>Образовательная платформа по современным технологиям</p>
+    </footer>
+    
+    <script src="script.js"></script>
+</body>
+</html>
