@@ -1,3 +1,44 @@
+// Function to load content into main area
+function loadContent(url) {
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
+        })
+        .then(html => {
+            // Create a temporary DOM element to extract the main content
+            const tempElement = document.createElement('div');
+            tempElement.innerHTML = html;
+            
+            // Extract content between body tags (excluding header and footer)
+            const contentElement = tempElement.querySelector('main');
+            if (contentElement) {
+                document.querySelector('main').innerHTML = contentElement.innerHTML;
+            } else {
+                // If no main tag, use the entire body content
+                const bodyContent = tempElement.querySelector('body');
+                if (bodyContent) {
+                    // Remove header and footer if they exist in the fetched content
+                    const header = bodyContent.querySelector('header');
+                    const footer = bodyContent.querySelector('footer');
+                    if (header) header.remove();
+                    if (footer) footer.remove();
+                    
+                    document.querySelector('main').innerHTML = bodyContent.innerHTML;
+                }
+            }
+            
+            // Update the URL without reloading the page
+            window.history.pushState({ url: url }, '', url);
+        })
+        .catch(error => {
+            console.error('Error loading content:', error);
+            document.querySelector('main').innerHTML = '<div class="error">Failed to load content. Please try again later.</div>';
+        });
+}
+
 // Function to scroll to a section
 function scrollToSection(sectionId) {
     const element = document.getElementById(sectionId);
@@ -182,7 +223,34 @@ function closeModal() {
 
 // Function to start a course
 function startCourse(course) {
-    alert(`Starting course: ${course}. This is where you would begin your interactive learning journey!`);
+    let courseFile = '';
+    switch(course) {
+        case 'go':
+            courseFile = 'go-course.html';
+            break;
+        case 'database':
+            courseFile = 'database-course.html';
+            break;
+        case 'architecture':
+            courseFile = 'system-design-course.html';
+            break;
+        case 'redpanda':
+            courseFile = 'go-course.html'; // For now, redirect to go course
+            break;
+        case 'reindexer':
+            courseFile = 'database-course.html'; // For now, redirect to database course
+            break;
+        case 'postgresql':
+            courseFile = 'database-course.html';
+            break;
+        case 'mongodb':
+            courseFile = 'database-course.html';
+            break;
+        default:
+            courseFile = 'go-course.html';
+    }
+    
+    loadContent(courseFile);
     
     // Update progress bar for the course
     const courseCards = document.querySelectorAll('.course-card');
@@ -197,81 +265,121 @@ function startCourse(course) {
 
 // Function to open playground
 function openPlayground(type) {
-    let title, content;
+    let content = '';
     
     switch(type) {
         case 'go':
-            title = 'Go Playground';
             content = `
-                <h3>Go Interactive Playground</h3>
-                <p>Try out Go code directly in your browser:</p>
-                <textarea class="code-editor" placeholder="Write your Go code here...">package main
+                <div class="lesson-container">
+                    <div class="lesson-header">
+                        <h1>Go Playground</h1>
+                        <p>Try out Go code directly in your browser:</p>
+                    </div>
+                    <div class="lesson-content">
+                        <textarea class="code-editor" id="go-editor" placeholder="Write your Go code here...">package main
 
-import "fmt"
+import \"fmt\"
 
 func main() {
-    fmt.Println("Hello, Backend Developer!")
+    fmt.Println(\"Hello, Backend Developer!\")
 }</textarea>
-                <button class="practice-btn">Run Code</button>
+                        <button class="practice-btn" onclick="runGoCode()">Run Code</button>
+                        <div class="output" id="go-output"></div>
+                    </div>
+                </div>
             `;
             break;
         case 'database':
-            title = 'Database Playground';
             content = `
-                <h3>Database Query Playground</h3>
-                <p>Practice PostgreSQL and MongoDB queries:</p>
-                <div class="db-tabs">
-                    <button class="tab-btn active" onclick="switchDbTab('postgresql')">PostgreSQL</button>
-                    <button class="tab-btn" onclick="switchDbTab('mongodb')">MongoDB</button>
+                <div class="lesson-container">
+                    <div class="lesson-header">
+                        <h1>Database Query Playground</h1>
+                        <p>Practice PostgreSQL and MongoDB queries:</p>
+                    </div>
+                    <div class="lesson-content">
+                        <div class="db-tabs">
+                            <button class="tab-btn active" onclick="switchDbTab('postgresql')">PostgreSQL</button>
+                            <button class="tab-btn" onclick="switchDbTab('mongodb')">MongoDB</button>
+                        </div>
+                        <textarea class="code-editor" id="db-editor" placeholder="Write your query here...">SELECT * FROM users;</textarea>
+                        <button class="practice-btn" onclick="runDbQuery()">Execute Query</button>
+                        <div class="output" id="db-output"></div>
+                    </div>
                 </div>
-                <textarea class="code-editor" placeholder="Write your query here...">SELECT * FROM users;</textarea>
-                <button class="practice-btn">Execute Query</button>
             `;
             break;
         case 'system-design':
-            title = 'System Design Challenges';
             content = `
-                <h3>System Design Challenge</h3>
-                <p>Design a high-performance, scalable system using the backend stack:</p>
-                <h4>Challenge: Design a Real-Time Analytics Platform</h4>
-                <p>Requirements:</p>
-                <ul>
-                    <li>Handle millions of events per second</li>
-                    <li>Process data in real-time</li>
-                    <li>Store processed data efficiently</li>
-                    <li>Provide fast query capabilities</li>
-                    <li>Ensure high availability</li>
-                </ul>
-                <p>Consider: Go microservices, Redpanda for streaming, PostgreSQL for OLTP, MongoDB for analytics, Reindexer for fast queries</p>
-                <button class="practice-btn">Start Designing</button>
+                <div class="lesson-container">
+                    <div class="lesson-header">
+                        <h1>System Design Challenges</h1>
+                        <p>Design a high-performance, scalable system using the backend stack:</p>
+                    </div>
+                    <div class="lesson-content">
+                        <h3>Challenge: Design a Real-Time Analytics Platform</h3>
+                        <p>Requirements:</p>
+                        <ul>
+                            <li>Handle millions of events per second</li>
+                            <li>Process data in real-time</li>
+                            <li>Store processed data efficiently</li>
+                            <li>Provide fast query capabilities</li>
+                            <li>Ensure high availability</li>
+                        </ul>
+                        <p>Consider: Go microservices, Redpanda for streaming, PostgreSQL for OLTP, MongoDB for analytics, Reindexer for fast queries</p>
+                        <div class="exercise">
+                            <h4>Your Design:</h4>
+                            <textarea class="code-editor" placeholder="Describe your system architecture..."></textarea>
+                            <button class="practice-btn">Save Design</button>
+                        </div>
+                    </div>
+                </div>
             `;
             break;
         case 'interview':
-            title = 'Interview Preparation';
             content = `
-                <h3>Backend Interview Questions</h3>
-                <p>Practice common backend interview questions:</p>
-                <div class="interview-questions">
-                    <div class="question">
-                        <h4>Q: Explain the difference between horizontal and vertical scaling. When would you use each?</h4>
-                        <div class="answer">
-                            <p><strong>Answer:</strong> Vertical scaling (scale-up) involves adding more power to existing servers (CPU, RAM, etc.). Horizontal scaling (scale-out) involves adding more servers to distribute the load. Vertical scaling is simpler but has hardware limits. Horizontal scaling is more complex but offers better scalability.</p>
-                        </div>
+                <div class="lesson-container">
+                    <div class="lesson-header">
+                        <h1>Backend Interview Preparation</h1>
+                        <p>Practice common backend interview questions:</p>
                     </div>
-                    <div class="question">
-                        <h4>Q: How would you design a system to handle 1 million concurrent users?</h4>
-                        <button class="practice-btn">Show Approach</button>
+                    <div class="lesson-content">
+                        <div class="interview-questions">
+                            <div class="question">
+                                <h3>Q: Explain the difference between horizontal and vertical scaling. When would you use each?</h3>
+                                <div class="answer">
+                                    <p><strong>Answer:</strong> Vertical scaling (scale-up) involves adding more power to existing servers (CPU, RAM, etc.). Horizontal scaling (scale-out) involves adding more servers to distribute the load. Vertical scaling is simpler but has hardware limits. Horizontal scaling is more complex but offers better scalability.</p>
+                                </div>
+                            </div>
+                            <div class="question">
+                                <h3>Q: How would you design a system to handle 1 million concurrent users?</h3>
+                                <div class="answer">
+                                    <p><strong>Answer:</strong> To handle 1 million concurrent users, I would implement a microservices architecture with load balancers, use caching layers (Redis), implement database sharding, use CDNs for static content, implement message queues for asynchronous processing, and ensure horizontal scaling capabilities.</p>
+                                </div>
+                            </div>
+                            <div class="question">
+                                <h3>Q: What are the key differences between SQL and NoSQL databases? When would you choose each?</h3>
+                                <div class="answer">
+                                    <p><strong>Answer:</strong> SQL databases are relational with fixed schemas, ACID compliant, and good for complex queries. NoSQL databases are non-relational, flexible schemas, and better for horizontal scaling. Choose SQL for complex transactions and relationships, NoSQL for scalability and flexibility.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             `;
             break;
         default:
-            title = 'Practice Area';
-            content = `<h3>${type} Practice</h3><p>Practice content for ${type} coming soon.</p>`;
+            content = `<div class="lesson-container"><div class="lesson-header"><h1>${type} Practice</h1><p>Practice content for ${type} coming soon.</p></div></div>`;
     }
     
-    // In a real implementation, this would open a modal or navigate to a practice page
-    alert(`Opening ${title} - ${content.substring(0, 100)}...`);
+    // Instead of alert, update the main content area
+    document.querySelector('main').innerHTML = content;
+    
+    // Add event listeners for the new elements
+    if (type === 'go') {
+        addGoPlaygroundFunctionality();
+    } else if (type === 'database') {
+        addDbPlaygroundFunctionality();
+    }
 }
 
 // Function to switch database tabs
