@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Go Course - TechStack Mastery</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .lesson-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .lesson-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .lesson-content {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .code-editor {
+            width: 100%;
+            height: 200px;
+            padding: 15px;
+            border: 1px solid #cbd5e0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            background: #f7fafc;
+            margin: 15px 0;
+        }
+        
+        .exercise {
+            background: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .exercise h3 {
+            color: #92400e;
+            margin-top: 0;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        .nav-btn {
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .nav-btn:hover {
+            background-color: #1d4ed8;
+        }
+        
+        .nav-btn.prev {
+            background-color: #64748b;
+        }
+        
+        .nav-btn.prev:hover {
+            background-color: #475569;
+        }
+        
+        .lesson-progress {
+            background: #e2e8f0;
+            height: 10px;
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: #2563eb;
+            width: 20%; /* This would be dynamic in a real app */
+        }
+        
+        .output {
+            background: #1a202c;
+            color: #7cf625;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            min-height: 100px;
+            margin-top: 15px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">TechStack Mastery</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#technologies">Technologies</a></li>
+                <li><a href="#courses">Courses</a></li>
+                <li><a href="#practice">Practice</a></li>
+                <li><a href="#career">Career Prep</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="lesson-container">
+            <div class="lesson-header">
+                <h1>Go Fundamentals - Lesson 1: Variables and Types</h1>
+                <div class="lesson-progress">
+                    <div class="progress-bar"></div>
+                </div>
+                <p>Learn the basics of Go programming language</p>
+            </div>
+            
+            <div class="lesson-content">
+                <h2>Variables in Go</h2>
+                <p>In Go, variables are explicitly declared and used by the compiler to e.g. check type-correctness of function calls.</p>
+                
+                <div class="code-block">
+                    // Declaring a variable with explicit type
+                    var name string = "John"
+                    
+                    // Declaring a variable without type (type inference)
+                    var age = 25
+                    
+                    // Short declaration (only in functions)
+                    country := "USA"
+                </div>
+                
+                <h2>Basic Types</h2>
+                <p>Go's basic types are:</p>
+                <ul>
+                    <li><code>bool</code></li>
+                    <li><code>string</code></li>
+                    <li><code>int</code>, <code>int8</code>, <code>int16</code>, <code>int32</code>, <code>int64</code></li>
+                    <li><code>uint</code>, <code>uint8</code>, <code>uint16</code>, <code>uint32</code>, <code>uint64</code>, <code>uintptr</code></li>
+                    <li><code>byte</code> (alias for <code>uint8</code>)</li>
+                    <li><code>rune</code> (alias for <code>int32</code>)</li>
+                    <li><code>float32</code>, <code>float64</code></li>
+                    <li><code>complex64</code>, <code>complex128</code></li>
+                </ul>
+                
+                <div class="exercise">
+                    <h3>Try It Yourself</h3>
+                    <p>Modify the code below to declare a variable of type <code>int</code> with the value 42, and print it:</p>
+                    <textarea class="code-editor" id="editor">package main
+
+import "fmt"
+
+func main() {
+	// Declare a variable of type int with value 42
+	// YOUR CODE HERE
+	
+	fmt.Println("The answer is:", answer)
+}</textarea>
+                    <button class="practice-btn" onclick="runGoCode()">Run Code</button>
+                    <div class="output" id="output"></div>
+                </div>
+                
+                <h2>Constants</h2>
+                <p>Constants are declared like variables, but with the <code>const</code> keyword.</p>
+                
+                <div class="code-block">
+                    const Pi = 3.14
+                    const MaxRetries = 5
+                </div>
+            </div>
+            
+            <div class="navigation">
+                <a href="#" class="nav-btn prev">Previous Lesson</a>
+                <a href="#" class="nav-btn">Next Lesson</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function runGoCode() {
+            const code = document.getElementById('editor').value;
+            const output = document.getElementById('output');
+            
+            // In a real implementation, this would send the code to a Go execution service
+            // For this demo, we'll simulate the output
+            output.innerHTML = "Program executed successfully!\nOutput: The answer is: 42";
+        }
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Go Course Lesson loaded!');
+        });
+    </script>
+</body>
+</html>
