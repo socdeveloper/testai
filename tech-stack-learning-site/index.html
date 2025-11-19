@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Backend Stack - Go, Redpanda, Reindexer, PostgreSQL, MongoDB</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">TechStack Mastery</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#technologies">Technologies</a></li>
+                <li><a href="#courses">Courses</a></li>
+                <li><a href="#practice">Practice</a></li>
+                <li><a href="#career">Career Prep</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="container">
+                <h1>Master Backend Technologies for High-Performance Systems</h1>
+                <p>Learn Go, Redpanda, Reindexer, PostgreSQL, MongoDB and more to become a senior backend developer</p>
+                <button class="cta-button" onclick="scrollToSection('technologies')">Start Learning</button>
+            </div>
+        </section>
+
+        <section id="technologies" class="technologies">
+            <div class="container">
+                <h2>Master the Complete Backend Stack</h2>
+                <div class="tech-grid">
+                    <div class="tech-card" onclick="showTechDetails('go')">
+                        <img src="https://golang.org/lib/godoc/images/go-logo-blue.svg" alt="Go">
+                        <h3>Go (Golang)</h3>
+                        <p>Concurrent, efficient, and scalable systems programming</p>
+                    </div>
+                    <div class="tech-card" onclick="showTechDetails('redpanda')">
+                        <img src="https://redpanda.com/assets/images/redpanda-logo.svg" alt="Redpanda">
+                        <h3>Redpanda</h3>
+                        <p>Streaming platform compatible with Kafka</p>
+                    </div>
+                    <div class="tech-card" onclick="showTechDetails('reindexer')">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjEwIj48L2NpcmNsZT48cGF0aCBkPSJNNCAxMmgxNk0xMiA0djE2Ij48L3BhdGg+PC9zdmc+" alt="Reindexer">
+                        <h3>Reindexer</h3>
+                        <p>Fast embedded database with SQL and NoSQL capabilities</p>
+                    </div>
+                    <div class="tech-card" onclick="showTechDetails('postgresql')">
+                        <img src="https://www.postgresql.org/media/img/about/press/elephant.png" alt="PostgreSQL">
+                        <h3>PostgreSQL</h3>
+                        <p>Powerful open-source relational database</p>
+                    </div>
+                    <div class="tech-card" onclick="showTechDetails('mongodb')">
+                        <img src="https://webimages.mongodb.com/_com_assets/cms/kuyjf3vep7fa8f78t-horizontal_default_slate_blue.svg?auto=format%2Ccompress" alt="MongoDB">
+                        <h3>MongoDB</h3>
+                        <p>Flexible document-based NoSQL database</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="courses" class="courses">
+            <div class="container">
+                <h2>Interactive Learning Paths</h2>
+                <div class="course-grid">
+                    <div class="course-card">
+                        <h3>Go Fundamentals & Advanced</h3>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 0%"></div>
+                        </div>
+                        <p>Learn Go from basics to advanced concepts including concurrency, interfaces, and memory management</p>
+                        <button class="course-btn" onclick="startCourse('go')">Start Course</button>
+                    </div>
+                    <div class="course-card">
+                        <h3>Redpanda & Event Streaming</h3>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 0%"></div>
+                        </div>
+                        <p>Master event-driven architecture with Redpanda producers and consumers</p>
+                        <button class="course-btn" onclick="startCourse('redpanda')">Start Course</button>
+                    </div>
+                    <div class="course-card">
+                        <h3>Database Mastery</h3>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 0%"></div>
+                        </div>
+                        <p>Deep dive into PostgreSQL and MongoDB with practical examples</p>
+                        <button class="course-btn" onclick="startCourse('database')">Start Course</button>
+                    </div>
+                    <div class="course-card">
+                        <h3>System Design & Architecture</h3>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 0%"></div>
+                        </div>
+                        <p>Design scalable, high-performance systems using the complete stack</p>
+                        <button class="course-btn" onclick="startCourse('architecture')">Start Course</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="practice" class="practice">
+            <div class="container">
+                <h2>Hands-on Practice</h2>
+                <div class="practice-grid">
+                    <div class="practice-item">
+                        <h3>Go Playground</h3>
+                        <p>Interactive coding environment for Go</p>
+                        <button class="practice-btn" onclick="openPlayground('go')">Try Now</button>
+                    </div>
+                    <div class="practice-item">
+                        <h3>Database Queries</h3>
+                        <p>Practice PostgreSQL and MongoDB queries</p>
+                        <button class="practice-btn" onclick="openPlayground('database')">Try Now</button>
+                    </div>
+                    <div class="practice-item">
+                        <h3>System Design Challenges</h3>
+                        <p>Solve real-world system design problems</p>
+                        <button class="practice-btn" onclick="openPlayground('system-design')">Try Now</button>
+                    </div>
+                    <div class="practice-item">
+                        <h3>Interview Prep</h3>
+                        <p>Practice for technical interviews</p>
+                        <button class="practice-btn" onclick="openPlayground('interview')">Try Now</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="career" class="career">
+            <div class="container">
+                <h2>Prepare for Your Backend Career</h2>
+                <div class="career-content">
+                    <div class="career-section">
+                        <h3>Resume & Portfolio Builder</h3>
+                        <p>Create a standout resume highlighting your backend skills</p>
+                        <button class="career-btn" onclick="openCareerTool('resume')">Build Resume</button>
+                    </div>
+                    <div class="career-section">
+                        <h3>Mock Interviews</h3>
+                        <p>Practice with real backend interview questions</p>
+                        <button class="career-btn" onclick="openCareerTool('interview')">Start Practice</button>
+                    </div>
+                    <div class="career-section">
+                        <h3>Job Search Resources</h3>
+                        <p>Access to job boards and company profiles</p>
+                        <button class="career-btn" onclick="openCareerTool('jobs')">Find Jobs</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 TechStack Mastery - Your Path to Backend Excellence</p>
+        </div>
+    </footer>
+
+    <!-- Modal for tech details -->
+    <div id="techModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="techDetails">
+                <!-- Tech details will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

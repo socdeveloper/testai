@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Course - TechStack Mastery</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .lesson-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .lesson-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .lesson-content {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .query-editor {
+            width: 100%;
+            height: 150px;
+            padding: 15px;
+            border: 1px solid #cbd5e0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            background: #f7fafc;
+            margin: 15px 0;
+        }
+        
+        .exercise {
+            background: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .exercise h3 {
+            color: #92400e;
+            margin-top: 0;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        .nav-btn {
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .nav-btn:hover {
+            background-color: #1d4ed8;
+        }
+        
+        .nav-btn.prev {
+            background-color: #64748b;
+        }
+        
+        .nav-btn.prev:hover {
+            background-color: #475569;
+        }
+        
+        .lesson-progress {
+            background: #e2e8f0;
+            height: 10px;
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: #2563eb;
+            width: 40%; /* This would be dynamic in a real app */
+        }
+        
+        .output {
+            background: #1a202c;
+            color: #7cf625;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            min-height: 100px;
+            margin-top: 15px;
+            white-space: pre-wrap;
+        }
+        
+        .db-tabs {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        
+        .tab-btn {
+            padding: 10px 20px;
+            background: #e2e8f0;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px 5px 0 0;
+            margin-right: 5px;
+        }
+        
+        .tab-btn.active {
+            background: #2563eb;
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">TechStack Mastery</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#technologies">Technologies</a></li>
+                <li><a href="#courses">Courses</a></li>
+                <li><a href="#practice">Practice</a></li>
+                <li><a href="#career">Career Prep</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="lesson-container">
+            <div class="lesson-header">
+                <h1>Database Mastery - Lesson 1: PostgreSQL vs MongoDB</h1>
+                <div class="lesson-progress">
+                    <div class="progress-bar"></div>
+                </div>
+                <p>Learn when and how to use PostgreSQL and MongoDB effectively</p>
+            </div>
+            
+            <div class="lesson-content">
+                <h2>PostgreSQL vs MongoDB</h2>
+                <p>Understanding the differences between relational (PostgreSQL) and document (MongoDB) databases is crucial for backend development.</p>
+                
+                <div class="db-tabs">
+                    <button class="tab-btn active" onclick="switchTab('postgresql')">PostgreSQL</button>
+                    <button class="tab-btn" onclick="switchTab('mongodb')">MongoDB</button>
+                </div>
+                
+                <div id="postgresql" class="tab-content active">
+                    <h3>PostgreSQL: Relational Database</h3>
+                    <p>PostgreSQL is a powerful, open-source object-relational database system known for its reliability, feature robustness, and performance.</p>
+                    
+                    <h4>When to use PostgreSQL:</h4>
+                    <ul>
+                        <li>When you need ACID compliance</li>
+                        <li>Complex queries with joins</li>
+                        <li>Structured data with defined schemas</li>
+                        <li>Strong consistency requirements</li>
+                        <li>Financial applications</li>
+                    </ul>
+                    
+                    <div class="code-block">
+                        -- Creating a users table
+                        CREATE TABLE users (
+                            id SERIAL PRIMARY KEY,
+                            name VARCHAR(100) NOT NULL,
+                            email VARCHAR(255) UNIQUE NOT NULL,
+                            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                        );
+                        
+                        -- Inserting data
+                        INSERT INTO users (name, email) VALUES ('John Doe', 'john@example.com');
+                        
+                        -- Querying data
+                        SELECT * FROM users WHERE email = 'john@example.com';
+                    </div>
+                </div>
+                
+                <div id="mongodb" class="tab-content">
+                    <h3>MongoDB: Document Database</h3>
+                    <p>MongoDB is a NoSQL database that stores data in flexible, JSON-like documents with dynamic schemas.</p>
+                    
+                    <h4>When to use MongoDB:</h4>
+                    <ul>
+                        <li>Unstructured or semi-structured data</li>
+                        <li>Horizontal scaling needs</li>
+                        <li>Agile development with changing requirements</li>
+                        <li>Content management systems</li>
+                        <li>Real-time analytics</li>
+                    </ul>
+                    
+                    <div class="code-block">
+                        // Creating a users collection
+                        db.users.insertOne({
+                            name: "John Doe",
+                            email: "john@example.com",
+                            createdAt: new Date()
+                        });
+                        
+                        // Querying data
+                        db.users.find({email: "john@example.com"});
+                        
+                        // Aggregation pipeline
+                        db.orders.aggregate([
+                            {$match: {status: "completed"}},
+                            {$group: {_id: "$customerId", total: {$sum: "$amount"}}}
+                        ]);
+                    </div>
+                </div>
+                
+                <div class="exercise">
+                    <h3>Try It Yourself</h3>
+                    <p>Write a query to find all users with the name "John" in both PostgreSQL and MongoDB:</p>
+                    
+                    <h4>PostgreSQL Query:</h4>
+                    <textarea class="query-editor" id="pg-query">SELECT * FROM users WHERE name = 'John';</textarea>
+                    <button class="practice-btn" onclick="runQuery('postgresql')">Run PostgreSQL Query</button>
+                    
+                    <h4>MongoDB Query:</h4>
+                    <textarea class="query-editor" id="mongo-query">db.users.find({name: "John"})</textarea>
+                    <button class="practice-btn" onclick="runQuery('mongodb')">Run MongoDB Query</button>
+                    
+                    <div class="output" id="output"></div>
+                </div>
+                
+                <h2>Indexing Strategies</h2>
+                <p>Indexes are crucial for performance in both PostgreSQL and MongoDB, but they work differently.</p>
+                
+                <h3>PostgreSQL Indexes</h3>
+                <div class="code-block">
+                    -- B-tree index (default)
+                    CREATE INDEX idx_users_email ON users(email);
+                    
+                    -- Partial index
+                    CREATE INDEX idx_active_users ON users(id) WHERE active = true;
+                    
+                    -- Composite index
+                    CREATE INDEX idx_users_name_age ON users(name, age);
+                </div>
+                
+                <h3>MongoDB Indexes</h3>
+                <div class="code-block">
+                    // Single field index
+                    db.users.createIndex({email: 1})
+                    
+                    // Compound index
+                    db.users.createIndex({name: 1, age: 1})
+                    
+                    // Text index
+                    db.users.createIndex({name: "text", bio: "text"})
+                </div>
+            </div>
+            
+            <div class="navigation">
+                <a href="#" class="nav-btn prev">Previous Lesson</a>
+                <a href="#" class="nav-btn">Next Lesson</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function switchTab(dbType) {
+            // Hide all tab content
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            document.getElementById(dbType).classList.add('active');
+            
+            // Set active class on clicked button
+            event.target.classList.add('active');
+        }
+        
+        function runQuery(dbType) {
+            const output = document.getElementById('output');
+            
+            if (dbType === 'postgresql') {
+                const query = document.getElementById('pg-query').value;
+                output.innerHTML = `PostgreSQL Query Executed:\n${query}\n\nResult: 2 rows found`;
+            } else if (dbType === 'mongodb') {
+                const query = document.getElementById('mongo-query').value;
+                output.innerHTML = `MongoDB Query Executed:\n${query}\n\nResult: 2 documents found`;
+            }
+        }
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Database Course Lesson loaded!');
+        });
+    </script>
+</body>
+</html>

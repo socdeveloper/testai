@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Preparation - TechStack Mastery</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .lesson-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .lesson-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .lesson-content {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .question-card {
+            background: #f8fafc;
+            border: 1px solid #cbd5e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .question-card h3 {
+            color: #2563eb;
+            margin-top: 0;
+        }
+        
+        .answer-section {
+            margin-top: 15px;
+            display: none;
+        }
+        
+        .show-answer-btn {
+            background-color: #64748b;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        .show-answer-btn:hover {
+            background-color: #475569;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        .nav-btn {
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .nav-btn:hover {
+            background-color: #1d4ed8;
+        }
+        
+        .nav-btn.prev {
+            background-color: #64748b;
+        }
+        
+        .nav-btn.prev:hover {
+            background-color: #475569;
+        }
+        
+        .lesson-progress {
+            background: #e2e8f0;
+            height: 10px;
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: #2563eb;
+            width: 100%; /* This would be dynamic in a real app */
+        }
+        
+        .resume-section {
+            background: #f0fdf4;
+            border-left: 4px solid #10b981;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .resume-template {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #cbd5e0;
+            margin: 15px 0;
+        }
+        
+        .tech-highlight {
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        
+        .skill-level {
+            display: inline-block;
+            width: 80px;
+            height: 10px;
+            background: #e2e8f0;
+            border-radius: 5px;
+            margin-left: 15px;
+            vertical-align: middle;
+        }
+        
+        .skill-level.fill {
+            background: #2563eb;
+            width: 60px; /* Example for advanced level */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">TechStack Mastery</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#technologies">Technologies</a></li>
+                <li><a href="#courses">Courses</a></li>
+                <li><a href="#practice">Practice</a></li>
+                <li><a href="#career">Career Prep</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="lesson-container">
+            <div class="lesson-header">
+                <h1>Interview Preparation & Career Readiness</h1>
+                <div class="lesson-progress">
+                    <div class="progress-bar"></div>
+                </div>
+                <p>Prepare for backend developer interviews and build a standout resume</p>
+            </div>
+            
+            <div class="lesson-content">
+                <h2>Backend Developer Interview Preparation</h2>
+                <p>This section covers common interview questions and scenarios you'll encounter when interviewing for backend positions.</p>
+                
+                <h2>System Design Questions</h2>
+                
+                <div class="question-card">
+                    <h3>Design a URL Shortening Service</h3>
+                    <p>Design a system like Bitly that can handle millions of requests per day.</p>
+                    
+                    <h4>Considerations:</h4>
+                    <ul>
+                        <li>How to generate unique short codes</li>
+                        <li>How to handle high QPS (queries per second)</li>
+                        <li>How to ensure data consistency</li>
+                        <li>How to scale the system</li>
+                        <li>How to handle analytics</li>
+                    </ul>
+                    
+                    <button class="show-answer-btn" onclick="toggleAnswer('url-shorten')">Show Answer Approach</button>
+                    <div class="answer-section" id="url-shorten">
+                        <h4>Approach:</h4>
+                        <p>1. <strong>API Design</strong>: POST /shorten, GET /{code}</p>
+                        <p>2. <strong>Database Choice</strong>: PostgreSQL for URL mapping, MongoDB for analytics</p>
+                        <p>3. <strong>Architecture</strong>: Go microservices with Redis for caching</p>
+                        <p>4. <strong>Scalability</strong>: Use consistent hashing for distributed storage</p>
+                        <p>5. <strong>Performance</strong>: CDN for redirects, Reindexer for fast lookups</p>
+                    </div>
+                </div>
+                
+                <div class="question-card">
+                    <h3>Design a Real-Time Notification System</h3>
+                    <p>Design a system that can send notifications to millions of users with sub-second latency.</p>
+                    
+                    <button class="show-answer-btn" onclick="toggleAnswer('notification')">Show Answer Approach</button>
+                    <div class="answer-section" id="notification">
+                        <h4>Approach:</h4>
+                        <p>1. <strong>Architecture</strong>: Event-driven with <span class="tech-highlight">Redpanda</span> for message streaming</p>
+                        <p>2. <strong>Services</strong>: Go microservices for different notification types</p>
+                        <p>3. <strong>Data Storage</strong>: PostgreSQL for user preferences, MongoDB for history</p>
+                        <p>4. <strong>Delivery</strong>: WebSocket connections or push notifications</p>
+                        <p>5. <strong>Scalability</strong>: Horizontal partitioning by user ID</p>
+                    </div>
+                </div>
+                
+                <h2>Technical Questions</h2>
+                
+                <div class="question-card">
+                    <h3>Explain the difference between horizontal and vertical scaling. When would you use each?</h3>
+                    
+                    <button class="show-answer-btn" onclick="toggleAnswer('scaling')">Show Answer</button>
+                    <div class="answer-section" id="scaling">
+                        <p><strong>Vertical Scaling (Scale-up)</strong>: Increasing the capacity of existing servers by adding more CPU, RAM, or storage. Pros: Simple to implement, no changes to application needed. Cons: Hardware limits, single point of failure, expensive.</p>
+                        <p><strong>Horizontal Scaling (Scale-out)</strong>: Adding more servers to distribute the load. Pros: Better fault tolerance, virtually unlimited scaling, cost-effective. Cons: More complex, requires application changes.</p>
+                        <p><strong>When to use</strong>: Vertical scaling for small applications or databases that don't support sharding. Horizontal scaling for high-traffic applications, microservices, and distributed systems.</p>
+                    </div>
+                </div>
+                
+                <div class="question-card">
+                    <h3>How would you design an API in Go that can handle 10,000 requests per second?</h3>
+                    
+                    <button class="show-answer-btn" onclick="toggleAnswer('api-design')">Show Answer</button>
+                    <div class="answer-section" id="api-design">
+                        <p>1. <strong>Framework</strong>: Use a high-performance framework like Gin or Echo</p>
+                        <p>2. <strong>Concurrency</strong>: Leverage goroutines for concurrent request handling</p>
+                        <p>3. <strong>Caching</strong>: Implement Redis for frequently accessed data</p>
+                        <p>4. <strong>Database</strong>: Use connection pooling, proper indexing, and read replicas</p>
+                        <p>5. <strong>Load Balancing</strong>: Distribute requests across multiple instances</p>
+                        <p>6. <strong>Monitoring</strong>: Implement Prometheus metrics for performance tracking</p>
+                        
+                        <div class="code-block">
+                            // Example high-performance Go handler
+                            func (s *Service) HighPerfHandler(c *gin.Context) {
+                                // Use goroutines for async operations
+                                go func() {
+                                    // Process non-critical tasks in background
+                                    s.analytics.Track(c.Request)
+                                }()
+                                
+                                // Use context with timeout
+                                ctx, cancel := context.WithTimeout(c.Request.Context(), 5*time.Second)
+                                defer cancel()
+                                
+                                // Use connection pooling for DB
+                                user, err := s.db.GetUser(ctx, c.Param("id"))
+                                if err != nil {
+                                    c.JSON(http.StatusNotFound, gin.H{"error": "Not found"})
+                                    return
+                                }
+                                
+                                c.JSON(http.StatusOK, user)
+                            }
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question-card">
+                    <h3>How do you ensure data consistency in a distributed system?</h3>
+                    
+                    <button class="show-answer-btn" onclick="toggleAnswer('consistency')">Show Answer</button>
+                    <div class="answer-section" id="consistency">
+                        <p>1. <strong>Two-Phase Commit (2PC)</strong>: For strong consistency across distributed transactions</p>
+                        <p>2. <strong>Eventual Consistency</strong>: Using event sourcing and CQRS patterns</p>
+                        <p>3. <strong>Saga Pattern</strong>: For long-running transactions with compensating actions</p>
+                        <p>4. <strong>Idempotency</strong>: Ensuring operations can be safely repeated</p>
+                        <p>5. <strong>Message Queues</strong>: Using <span class="tech-highlight">Redpanda</span> with exactly-once semantics</p>
+                        <p>6. <strong>Consensus Algorithms</strong>: Raft or Paxos for distributed coordination</p>
+                    </div>
+                </div>
+                
+                <h2>Resume & Portfolio Builder</h2>
+                
+                <div class="resume-section">
+                    <h3>Backend Developer Resume Template</h3>
+                    <p>Use this template to create a standout resume for backend positions:</p>
+                    
+                    <div class="resume-template">
+                        <h3>[Your Name]</h3>
+                        <p>[Email] | [Phone] | [City, State] | [LinkedIn] | [GitHub]</p>
+                        
+                        <h4>TECHNICAL SKILLS</h4>
+                        <p><strong>Languages:</strong> Go, Python, SQL</p>
+                        <p><strong>Technologies:</strong> 
+                            <span class="tech-highlight">Go</span> <div class="skill-level fill"></div> Advanced,
+                            <span class="tech-highlight">Redpanda</span> <div class="skill-level fill"></div> Advanced,
+                            <span class="tech-highlight">PostgreSQL</span> <div class="skill-level fill"></div> Advanced,
+                            <span class="tech-highlight">MongoDB</span> <div class="skill-level fill"></div> Advanced,
+                            <span class="tech-highlight">Reindexer</span> <div class="skill-level"></div> Intermediate
+                        </p>
+                        <p><strong>Tools:</strong> Docker, Kubernetes, Prometheus, Grafana, Git</p>
+                        
+                        <h4>EXPERIENCE</h4>
+                        <p><strong>Backend Engineer</strong> | [Company] | [Dates]</p>
+                        <ul>
+                            <li>Developed high-performance Go microservices handling 10K+ requests/second</li>
+                            <li>Implemented event-driven architecture using Redpanda for real-time processing</li>
+                            <li>Optimized database queries reducing response time by 50%</li>
+                        </ul>
+                        
+                        <h4>PROJECTS</h4>
+                        <p><strong>Real-time Analytics Platform</strong></p>
+                        <ul>
+                            <li>Built with Go, Redpanda, PostgreSQL, and MongoDB</li>
+                            <li>Processes 1M+ events per minute with sub-second latency</li>
+                            <li>Implemented using event sourcing and CQRS patterns</li>
+                        </ul>
+                    </div>
+                    
+                    <button class="career-btn" style="margin-top: 20px;">Download Resume Template</button>
+                </div>
+                
+                <h2>Mock Interview</h2>
+                <p>Practice common behavioral and technical questions:</p>
+                
+                <div class="question-card">
+                    <h3>"Tell me about a challenging technical problem you solved."</h3>
+                    <textarea class="query-editor" style="width: 100%; height: 150px;" placeholder="Formulate your answer here..."></textarea>
+                    <button class="practice-btn" style="margin-top: 10px;">Record Answer</button>
+                </div>
+                
+                <div class="question-card">
+                    <h3>"How do you stay updated with new technologies?"</h3>
+                    <p>Sample answer: "I regularly read tech blogs, participate in open-source projects, attend meetups, and experiment with new technologies in personal projects. Recently, I've been exploring the latest features in Go 1.21 and advancements in distributed systems architecture."</p>
+                </div>
+            </div>
+            
+            <div class="navigation">
+                <a href="system-design-course.html" class="nav-btn prev">Previous Lesson</a>
+                <a href="#" class="nav-btn">Complete Course</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function toggleAnswer(id) {
+            const answer = document.getElementById(id);
+            if (answer.style.display === 'block') {
+                answer.style.display = 'none';
+            } else {
+                answer.style.display = 'block';
+            }
+        }
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Interview Prep Lesson loaded!');
+        });
+    </script>
+</body>
+</html>
