@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Практические задания - Образовательная платформа</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <h1>Практические задания</h1>
+            <ul>
+                <li><a href="welcome.html">Главная</a></li>
+                <li><a href="index.html">Технологии</a></li>
+                <li><a href="#go-tasks">Go</a></li>
+                <li><a href="#redpanda-tasks">Redpanda</a></li>
+                <li><a href="#reindexer-tasks">Reindexer</a></li>
+                <li><a href="#postgresql-tasks">PostgreSQL</a></li>
+                <li><a href="#mongodb-tasks">MongoDB</a></li>
+                <li><a href="resources.html">Ресурсы</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <section id="go-tasks" class="tech-section">
+            <h2>Задания по Go</h2>
+            <div class="task">
+                <h3>Задание 1: Создание простого веб-сервера</h3>
+                <p>Создайте HTTP-сервер на Go, который отвечает "Hello, World!" на главной странице.</p>
+                <details>
+                    <summary>Подсказка</summary>
+                    <p>Используйте пакет <code>net/http</code> и функцию <code>http.HandleFunc</code> для обработки запросов.</p>
+                </details>
+                <details>
+                    <summary>Решение</summary>
+                    <pre><code>package main
+
+import (
+    "fmt"
+    "net/http"
+)
+
+func handler(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintf(w, "Hello, World!")
+}
+
+func main() {
+    http.HandleFunc("/", handler)
+    http.ListenAndServe(":8080", nil)
+}</code></pre>
+                </details>
+            </div>
+            <div class="task">
+                <h3>Задание 2: Работа с goroutines и channels</h3>
+                <p>Создайте программу, которая запускает несколько goroutines для выполнения вычислений и собирает результаты через канал.</p>
+                <details>
+                    <summary>Подсказка</summary>
+                    <p>Используйте <code>go func()</code> для запуска goroutines и каналы для передачи результатов.</p>
+                </details>
+            </div>
+        </section>
+        
+        <section id="redpanda-tasks" class="tech-section">
+            <h2>Задания по Redpanda</h2>
+            <div class="task">
+                <h3>Задание 1: Создание топика и отправка сообщений</h3>
+                <p>Создайте топик в Redpanda, отправьте в него несколько сообщений и прочитайте их.</p>
+                <details>
+                    <summary>Подсказка</summary>
+                    <p>Используйте команды <code>rpk topic create</code>, <code>rpk topic produce</code> и <code>rpk topic consume</code>.</p>
+                </details>
+            </div>
+            <div class="task">
+                <h3>Задание 2: Интеграция с Go приложением</h3>
+                <p>Создайте Go приложение, которое отправляет и получает сообщения из Redpanda.</p>
+                <details>
+                    <summary>Подсказка</summary>
+                    <p>Используйте библиотеку <code>sarama</code> или <code>kafka-go</code> для взаимодействия с Redpanda.</p>
+                </details>
+            </div>
+        </section>
+        
+        <section id="reindexer-tasks" class="tech-section">
+            <h2>Задания по Reindexer</h2>
+            <div class="task">
+                <h3>Задание 1: Создание пространства и работа с данными</h3>
+                <p>Создайте пространство в Reindexer, добавьте несколько записей и выполните поиск по индексу.</p>
+                <details>
+                    <summary>Подсказка</summary>
+                    <p>Используйте методы <code>OpenNamespace</code>, <code>Upsert</code> и <code>Select</code> из Go-библиотеки Reindexer.</p>
+                </details>
+            </div>
+            <div class="task">
+                <h3>Задание 2: Комплексные запросы</h3>
+                <p>Создайте индексы и выполните сложные запросы с фильтрацией и сортировкой.</p>
+                <details>
+                    <summary>Подсказка</summary>
+                    <p>Используйте метод <code>CreateIndex</code> для создания индексов и цепочку методов для сложных запросов.</p>
+                </details>
+            </div>
+        </section>
+        
+        <section id="postgresql-tasks" class="tech-section">
+            <h2>Задания по PostgreSQL</h2>
+            <div class="task">
+                <h3>Задание 1: Создание таблицы и сложных запросов</h3>
+                <p>Создайте таблицу пользователей с несколькими полями, добавьте данные и выполните JOIN с другой таблицей.</p>
+                <details>
+                    <summary>Подсказка</summary>
+                    <p>Используйте команды <code>CREATE TABLE</code>, <code>INSERT</code> и <code>SELECT ... JOIN</code>.</p>
+                </details>
+            </div>
+            <div class="task">
+                <h3>Задание 2: Создание индексов и оптимизация запросов</h3>
+                <p>Определите узкие места в запросах и создайте соответствующие индексы для их оптимизации.</p>
+                <details>
+                    <summary>Подсказка</summary>
+                    <p>Используйте команду <code>EXPLAIN ANALYZE</code> для анализа плана запроса и <code>CREATE INDEX</code> для создания индексов.</p>
+                </details>
+            </div>
+        </section>
+        
+        <section id="mongodb-tasks" class="tech-section">
+            <h2>Задания по MongoDB</h2>
+            <div class="task">
+                <h3>Задание 1: Операции CRUD</h3>
+                <p>Создайте коллекцию, добавьте документы, выполните поиск, обновление и удаление.</p>
+                <details>
+                    <summary>Подсказка</summary>
+                    <p>Используйте методы <code>insertOne</code>, <code>find</code>, <code>updateOne</code> и <code>deleteOne</code> в Go драйвере MongoDB.</p>
+                </details>
+            </div>
+            <div class="task">
+                <h3>Задание 2: Агрегации</h3>
+                <p>Выполните сложные агрегации для анализа данных в коллекции.</p>
+                <details>
+                    <summary>Подсказка</summary>
+                    <p>Используйте метод <code>Aggregate</code> с конвейером агрегации в Go драйвере MongoDB.</p>
+                </details>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>Образовательная платформа по современным технологиям</p>
+    </footer>
+    
+    <script src="script.js"></script>
+</body>
+</html>
