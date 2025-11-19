@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Script</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        button {
+            margin: 5px;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        main {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            min-height: 200px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test Script for TechStack Learning Site</h1>
+    <p>This page tests the functionality of the loadContent function.</p>
+    
+    <div>
+        <button onclick="loadContent('go-course.html')">Load Go Course</button>
+        <button onclick="loadContent('database-course.html')">Load Database Course</button>
+        <button onclick="loadContent('system-design-course.html')">Load System Design Course</button>
+        <button onclick="loadContent('interview-prep.html')">Load Interview Prep</button>
+        <button onclick="loadContent('nonexistent.html')">Load Non-existent Course</button>
+    </div>
+    
+    <main>
+        <p>Content will be loaded here...</p>
+    </main>
+
+    <script src="/workspace/tech-stack-learning-site/script.js"></script>
+</body>
+</html>

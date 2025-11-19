@@ -1,42 +1,301 @@
-// Function to load content into main area
-function loadContent(url) {
-    fetch(url)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.text();
-        })
-        .then(html => {
-            // Create a temporary DOM element to extract the main content
-            const tempElement = document.createElement('div');
-            tempElement.innerHTML = html;
+// Function to load content into main area using internal content
+function loadContent(section) {
+    let content = '';
+    
+    switch(section) {
+        case 'go-course.html':
+            content = getGoCourseContent();
+            break;
+        case 'database-course.html':
+            content = getDatabaseCourseContent();
+            break;
+        case 'system-design-course.html':
+            content = getSystemDesignCourseContent();
+            break;
+        case 'interview-prep.html':
+            content = getInterviewPrepContent();
+            break;
+        default:
+            content = '<div class="error">Content not found.</div>';
+    }
+    
+    if (content) {
+        document.querySelector('main').innerHTML = content;
+        // Update the URL without reloading the page
+        window.history.pushState({ section: section }, '', '#' + section.replace('.html', ''));
+    } else {
+        document.querySelector('main').innerHTML = '<div class="error">Failed to load content. Please try again later.</div>';
+    }
+}
+
+// Function to get Go course content
+function getGoCourseContent() {
+    return `
+        <div class="lesson-container">
+            <div class="lesson-header">
+                <h1>Go Fundamentals - Lesson 1: Variables and Types</h1>
+                <div class="lesson-progress">
+                    <div class="progress-bar" style="width: 20%"></div>
+                </div>
+                <p>Learn the basics of Go programming language</p>
+            </div>
             
-            // Extract content between body tags (excluding header and footer)
-            const contentElement = tempElement.querySelector('main');
-            if (contentElement) {
-                document.querySelector('main').innerHTML = contentElement.innerHTML;
-            } else {
-                // If no main tag, use the entire body content
-                const bodyContent = tempElement.querySelector('body');
-                if (bodyContent) {
-                    // Remove header and footer if they exist in the fetched content
-                    const header = bodyContent.querySelector('header');
-                    const footer = bodyContent.querySelector('footer');
-                    if (header) header.remove();
-                    if (footer) footer.remove();
+            <div class="lesson-content">
+                <h2>Variables in Go</h2>
+                <p>In Go, variables are explicitly declared and used by the compiler to e.g. check type-correctness of function calls.</p>
+                
+                <div class="code-block">
+                    // Declaring a variable with explicit type
+                    var name string = "John"
                     
-                    document.querySelector('main').innerHTML = bodyContent.innerHTML;
-                }
-            }
+                    // Declaring a variable without type (type inference)
+                    var age = 25
+                    
+                    // Short declaration (only in functions)
+                    country := "USA"
+                </div>
+                
+                <h2>Basic Types</h2>
+                <p>Go's basic types are:</p>
+                <ul>
+                    <li><code>bool</code></li>
+                    <li><code>string</code></li>
+                    <li><code>int</code>, <code>int8</code>, <code>int16</code>, <code>int32</code>, <code>int64</code></li>
+                    <li><code>uint</code>, <code>uint8</code>, <code>uint16</code>, <code>uint32</code>, <code>uint64</code>, <code>uintptr</code></li>
+                    <li><code>byte</code> (alias for <code>uint8</code>)</li>
+                    <li><code>rune</code> (alias for <code>int32</code>)</li>
+                    <li><code>float32</code>, <code>float64</code></li>
+                    <li><code>complex64</code>, <code>complex128</code></li>
+                </ul>
+                
+                <div class="exercise">
+                    <h3>Try It Yourself</h3>
+                    <p>Modify the code below to declare a variable of type <code>int</code> with the value 42, and print it:</p>
+                    <textarea class="code-editor" id="go-editor">package main
+
+import "fmt"
+
+func main() {
+	// Declare a variable of type int with value 42
+	// YOUR CODE HERE
+	
+	fmt.Println("The answer is:", answer)
+}</textarea>
+                    <button class="practice-btn" onclick="runGoCode()">Run Code</button>
+                    <div class="output" id="go-output"></div>
+                </div>
+                
+                <h2>Constants</h2>
+                <p>Constants are declared like variables, but with the <code>const</code> keyword.</p>
+                
+                <div class="code-block">
+                    const Pi = 3.14
+                    const MaxRetries = 5
+                </div>
+            </div>
             
-            // Update the URL without reloading the page
-            window.history.pushState({ url: url }, '', url);
-        })
-        .catch(error => {
-            console.error('Error loading content:', error);
-            document.querySelector('main').innerHTML = '<div class="error">Failed to load content. Please try again later.</div>';
-        });
+            <div class="navigation">
+                <button class="nav-btn prev" onclick="loadContent('go-course.html')">Previous Lesson</button>
+                <button class="nav-btn" onclick="loadContent('go-course.html')">Next Lesson</button>
+            </div>
+        </div>
+    `;
+}
+
+// Function to get Database course content
+function getDatabaseCourseContent() {
+    return `
+        <div class="lesson-container">
+            <div class="lesson-header">
+                <h1>Database Mastery: PostgreSQL & MongoDB</h1>
+                <div class="lesson-progress">
+                    <div class="progress-bar" style="width: 20%"></div>
+                </div>
+                <p>Master both relational and NoSQL databases for modern applications</p>
+            </div>
+            
+            <div class="lesson-content">
+                <h2>PostgreSQL: Advanced Queries</h2>
+                <p>PostgreSQL is a powerful, open-source object-relational database system. Let's explore advanced querying techniques.</p>
+                
+                <div class="code-block">
+-- Complex JOIN with subquery
+SELECT u.name, o.total, p.name as product_name
+FROM users u
+JOIN orders o ON u.id = o.user_id
+JOIN order_items oi ON o.id = oi.order_id
+JOIN products p ON oi.product_id = p.id
+WHERE o.created_at > (SELECT date_trunc('month', CURRENT_DATE - interval '1 month'))
+ORDER BY o.total DESC
+LIMIT 10;
+                </div>
+                
+                <h2>MongoDB: Aggregation Pipeline</h2>
+                <p>MongoDB's aggregation framework enables complex data processing operations.</p>
+                
+                <div class="code-block">
+// Find top 5 most purchased products
+db.orders.aggregate([
+  { $unwind: "$items" },
+  { $group: { _id: "$items.productId", totalQuantity: { $sum: "$items.quantity" } } },
+  { $lookup: { from: "products", localField: "_id", foreignField: "_id", as: "product" } },
+  { $unwind: "$product" },
+  { $sort: { totalQuantity: -1 } },
+  { $limit: 5 },
+  { $project: { name: "$product.name", totalQuantity: 1 } }
+])
+                </div>
+                
+                <div class="exercise">
+                    <h3>Query Practice</h3>
+                    <p>Try writing a query to find the top 3 users with the highest total order value:</p>
+                    <div class="db-tabs">
+                        <button class="tab-btn active" onclick="switchDbTab('postgresql')">PostgreSQL</button>
+                        <button class="tab-btn" onclick="switchDbTab('mongodb')">MongoDB</button>
+                    </div>
+                    <textarea class="code-editor" id="db-editor">-- Write your PostgreSQL query here
+SELECT u.name, SUM(o.total) as total_spent
+FROM users u
+JOIN orders o ON u.id = o.user_id
+GROUP BY u.id, u.name
+ORDER BY total_spent DESC
+LIMIT 3;</textarea>
+                    <button class="practice-btn" onclick="runDbQuery()">Execute Query</button>
+                    <div class="output" id="db-output"></div>
+                </div>
+            </div>
+            
+            <div class="navigation">
+                <button class="nav-btn prev" onclick="loadContent('database-course.html')">Previous Lesson</button>
+                <button class="nav-btn" onclick="loadContent('database-course.html')">Next Lesson</button>
+            </div>
+        </div>
+    `;
+}
+
+// Function to get System Design course content
+function getSystemDesignCourseContent() {
+    return `
+        <div class="lesson-container">
+            <div class="lesson-header">
+                <h1>System Design: Building Scalable Backend Systems</h1>
+                <div class="lesson-progress">
+                    <div class="progress-bar" style="width: 20%"></div>
+                </div>
+                <p>Design high-performance, fault-tolerant, and scalable systems</p>
+            </div>
+            
+            <div class="lesson-content">
+                <h2>Design a Real-Time Analytics Platform</h2>
+                <p>Requirements:</p>
+                <ul>
+                    <li>Handle millions of events per second</li>
+                    <li>Process data in real-time</li>
+                    <li>Store processed data efficiently</li>
+                    <li>Provide fast query capabilities</li>
+                    <li>Ensure high availability</li>
+                </ul>
+                
+                <h3>Architecture Components:</h3>
+                <ul>
+                    <li><strong>Go Services</strong>: Microservices for API handling and business logic</li>
+                    <li><strong>Redpanda</strong>: For event streaming and real-time data processing</li>
+                    <li><strong>Reindexer</strong>: For fast in-memory queries and caching</li>
+                    <li><strong>PostgreSQL</strong>: For transactional data and complex reporting</li>
+                    <li><strong>MongoDB</strong>: For flexible document storage and analytics</li>
+                </ul>
+                
+                <div class="exercise">
+                    <h3>Design Challenge</h3>
+                    <p>Design the data flow for processing user events (page views, clicks, etc.) from ingestion to analytics:</p>
+                    <textarea class="code-editor" placeholder="Describe your system architecture...">1. User events are collected via Go-based API gateway
+2. Events are published to Redpanda topics for real-time processing
+3. Go consumers process events and store processed data in PostgreSQL for OLTP
+4. Aggregated data is stored in MongoDB for analytics
+5. Real-time metrics are cached in Reindexer for fast queries
+6. Monitoring and observability with Prometheus and Grafana</textarea>
+                    <button class="practice-btn">Save Design</button>
+                </div>
+                
+                <h2>Key Considerations:</h2>
+                <ul>
+                    <li><strong>Scalability</strong>: Horizontal scaling with load balancers</li>
+                    <li><strong>Availability</strong>: Replication and failover mechanisms</li>
+                    <li><strong>Consistency</strong>: Eventual vs strong consistency models</li>
+                    <li><strong>Performance</strong>: Caching strategies and database optimization</li>
+                    <li><strong>Monitoring</strong>: Metrics, logs, and tracing</li>
+                </ul>
+            </div>
+            
+            <div class="navigation">
+                <button class="nav-btn prev" onclick="loadContent('system-design-course.html')">Previous Lesson</button>
+                <button class="nav-btn" onclick="loadContent('system-design-course.html')">Next Lesson</button>
+            </div>
+        </div>
+    `;
+}
+
+// Function to get Interview Prep content
+function getInterviewPrepContent() {
+    return `
+        <div class="lesson-container">
+            <div class="lesson-header">
+                <h1>Backend Interview Preparation</h1>
+                <div class="lesson-progress">
+                    <div class="progress-bar" style="width: 20%"></div>
+                </div>
+                <p>Master common backend interview questions and system design challenges</p>
+            </div>
+            
+            <div class="lesson-content">
+                <div class="interview-questions">
+                    <div class="question">
+                        <h3>Q: Explain the difference between horizontal and vertical scaling. When would you use each?</h3>
+                        <div class="answer">
+                            <p><strong>Answer:</strong> Vertical scaling (scale-up) involves adding more power to existing servers (CPU, RAM, etc.). Horizontal scaling (scale-out) involves adding more servers to distribute the load. Vertical scaling is simpler but has hardware limits. Horizontal scaling is more complex but offers better scalability.</p>
+                        </div>
+                    </div>
+                    <div class="question">
+                        <h3>Q: How would you design a system to handle 1 million concurrent users?</h3>
+                        <div class="answer">
+                            <p><strong>Answer:</strong> To handle 1 million concurrent users, I would implement a microservices architecture with load balancers, use caching layers (Redis), implement database sharding, use CDNs for static content, implement message queues for asynchronous processing, and ensure horizontal scaling capabilities.</p>
+                        </div>
+                    </div>
+                    <div class="question">
+                        <h3>Q: What are the key differences between SQL and NoSQL databases? When would you choose each?</h3>
+                        <div class="answer">
+                            <p><strong>Answer:</strong> SQL databases are relational with predefined schemas, ACID compliance, and complex queries. NoSQL databases are non-relational with flexible schemas, horizontal scaling, and high performance for specific use cases. Choose SQL for complex transactions and reporting, NoSQL for high-volume, unstructured data and scalability.</p>
+                        </div>
+                    </div>
+                    <div class="question">
+                        <h3>Q: Explain event-driven architecture and its benefits.</h3>
+                        <div class="answer">
+                            <p><strong>Answer:</strong> Event-driven architecture is a design pattern where components communicate through events. Benefits include loose coupling, scalability, resilience, and the ability to handle real-time data processing. Tools like Redpanda/Kafka are commonly used to implement this pattern.</p>
+                        </div>
+                    </div>
+                    <div class="question">
+                        <h3>Q: How would you implement authentication and authorization in a microservices architecture?</h3>
+                        <div class="answer">
+                            <p><strong>Answer:</strong> I would implement a centralized authentication service that issues JWT tokens. Each microservice would validate tokens and implement its own authorization logic based on user roles/permissions. API gateways can also handle authentication at the entry point.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <h2>System Design Exercise</h2>
+                <div class="exercise">
+                    <h3>Design a URL Shortening Service</h3>
+                    <p>Requirements: Handle millions of requests, ensure uniqueness, track analytics, handle redirects efficiently.</p>
+                    <textarea class="code-editor" placeholder="Describe your design approach...">1. API Service (Go): Handle URL shortening and redirection requests
+2. ID Generation Service: Generate unique short IDs using base62 encoding
+3. Database (PostgreSQL): Store mappings between short and long URLs
+4. Cache (Reindexer): Store frequently accessed URLs for fast retrieval
+5. Message Queue (Redpanda): Process analytics asynchronously
+6. Analytics Service (Go): Process and store usage statistics in MongoDB</textarea>
+                    <button class="practice-btn">Submit Design</button>
+                </div>
+            </div>
+        </div>
+    `;
 }
 
 // Function to scroll to a section
@@ -278,10 +537,10 @@ function openPlayground(type) {
                     <div class="lesson-content">
                         <textarea class="code-editor" id="go-editor" placeholder="Write your Go code here...">package main
 
-import \"fmt\"
+import "fmt"
 
 func main() {
-    fmt.Println(\"Hello, Backend Developer!\")
+    fmt.Println("Hello, Backend Developer!")
 }</textarea>
                         <button class="practice-btn" onclick="runGoCode()">Run Code</button>
                         <div class="output" id="go-output"></div>
@@ -405,74 +664,204 @@ function openCareerTool(tool) {
         case 'resume':
             title = 'Resume Builder';
             content = `
-                <h3>Backend Developer Resume Builder</h3>
-                <p>Build a standout resume for backend developer positions:</p>
-                <div class="form-group">
-                    <label for="name">Full Name:</label>
-                    <input type="text" id="name" placeholder="John Doe">
+                <div class="lesson-container">
+                    <div class="lesson-header">
+                        <h1>${title}</h1>
+                        <p>Create a standout backend developer resume</p>
+                    </div>
+                    <div class="lesson-content">
+                        <div class="resume-builder">
+                            <div class="form-group">
+                                <label for="name">Full Name:</label>
+                                <input type="text" id="name" placeholder="John Doe">
+                            </div>
+                            <div class="form-group">
+                                <label for="title">Job Title:</label>
+                                <input type="text" id="title" placeholder="Backend Developer">
+                            </div>
+                            <div class="form-group">
+                                <label for="summary">Professional Summary:</label>
+                                <textarea id="summary" placeholder="Experienced backend developer with expertise in Go, PostgreSQL, MongoDB..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="skills">Technical Skills:</label>
+                                <textarea id="skills" placeholder="Go, PostgreSQL, MongoDB, Redpanda, Reindexer, Docker, Kubernetes..."></textarea>
+                            </div>
+                            <button class="practice-btn" onclick="generateResume()">Generate Resume</button>
+                        </div>
+                        <div id="resume-output" class="resume-output"></div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" placeholder="john@example.com">
-                </div>
-                <div class="form-group">
-                    <label for="experience">Years of Experience:</label>
-                    <input type="number" id="experience" placeholder="3">
-                </div>
-                <div class="form-group">
-                    <label for="skills">Key Skills:</label>
-                    <textarea id="skills" placeholder="Go, PostgreSQL, MongoDB, etc.">Go, Redpanda, Reindexer, PostgreSQL, MongoDB</textarea>
-                </div>
-                <button class="career-btn">Generate Resume</button>
             `;
             break;
         case 'interview':
             title = 'Mock Interview';
             content = `
-                <h3>Backend Developer Mock Interview</h3>
-                <p>Practice with realistic interview questions:</p>
-                <div class="interview-pair">
-                    <div class="interviewer">
-                        <h4>Interviewer:</h4>
-                        <p>"Can you walk me through how you would design a high-performance API using Go that can handle 10,000 requests per second?"</p>
+                <div class="lesson-container">
+                    <div class="lesson-header">
+                        <h1>${title}</h1>
+                        <p>Practice for backend developer interviews</p>
                     </div>
-                    <div class="interviewee">
-                        <h4>Your Response:</h4>
-                        <textarea placeholder="Type your response here..."></textarea>
-                        <button class="practice-btn">Submit Answer</button>
+                    <div class="lesson-content">
+                        <div class="interview-simulation">
+                            <h3>Question: Design a URL shortening service</h3>
+                            <p>Take 10 minutes to design a scalable URL shortening service. Consider:</p>
+                            <ul>
+                                <li>How to generate unique short URLs</li>
+                                <li>How to store mappings efficiently</li>
+                                <li>How to handle redirects</li>
+                                <li>How to track analytics</li>
+                                <li>How to ensure high availability</li>
+                            </ul>
+                            <textarea id="interview-answer" placeholder="Your design approach..."></textarea>
+                            <div class="interview-actions">
+                                <button class="practice-btn" onclick="submitInterviewAnswer()">Submit Answer</button>
+                                <button class="practice-btn prev" onclick="showInterviewFeedback()">Get Feedback</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             `;
             break;
         case 'jobs':
-            title = 'Job Search';
+            title = 'Job Search Resources';
             content = `
-                <h3>Backend Developer Job Opportunities</h3>
-                <p>Find opportunities that match your skills:</p>
-                <div class="job-listings">
-                    <div class="job-card">
-                        <h4>Senior Backend Engineer</h4>
-                        <p>Tech Company Inc. - Remote</p>
-                        <p>Requirements: Go, PostgreSQL, MongoDB, Kafka/Redpanda</p>
-                        <p>Salary: $120k - $160k</p>
-                        <button class="practice-btn">Apply</button>
+                <div class="lesson-container">
+                    <div class="lesson-header">
+                        <h1>${title}</h1>
+                        <p>Resources to find backend developer positions</p>
                     </div>
-                    <div class="job-card">
-                        <h4>Backend Developer</h4>
-                        <p>Startup XYZ - San Francisco</p>
-                        <p>Requirements: Go, system design, event streaming</p>
-                        <p>Salary: $100k - $140k</p>
-                        <button class="practice-btn">Apply</button>
+                    <div class="lesson-content">
+                        <div class="job-resources">
+                            <h3>Top Job Boards for Backend Developers</h3>
+                            <ul>
+                                <li><a href="#" target="_blank">Stack Overflow Jobs</a></li>
+                                <li><a href="#" target="_blank">GitHub Jobs</a></li>
+                                <li><a href="#" target="_blank">AngelList</a></li>
+                                <li><a href="#" target="_blank">RemoteOK</a></li>
+                                <li><a href="#" target="_blank">We Work Remotely</a></li>
+                            </ul>
+                            
+                            <h3>Companies Known for Using Go</h3>
+                            <ul>
+                                <li>Google</li>
+                                <li>Uber</li>
+                                <li>Lyft</li>
+                                <li>Dropbox</li>
+                                <li>Twitch</li>
+                                <li>SendGrid</li>
+                            </ul>
+                            
+                            <h3>Interview Preparation Resources</h3>
+                            <ul>
+                                <li><a href="#" target="_blank">System Design Primer</a></li>
+                                <li><a href="#" target="_blank">Grokking the System Design Interview</a></li>
+                                <li><a href="#" target="_blank">LeetCode (Backend-focused problems)</a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             `;
             break;
         default:
             title = 'Career Tools';
-            content = `<h3>${tool} Tool</h3><p>Tool for ${tool} coming soon.</p>`;
+            content = `<div class="lesson-container"><div class="lesson-header"><h1>${title}</h1><p>Career resources coming soon.</p></div></div>`;
     }
     
-    alert(`Opening ${title} - ${content.substring(0, 100)}...`);
+    // Update the main content area
+    document.querySelector('main').innerHTML = content;
+}
+
+// Function to generate resume
+function generateResume() {
+    const name = document.getElementById('name').value || 'Your Name';
+    const title = document.getElementById('title').value || 'Backend Developer';
+    const summary = document.getElementById('summary').value || 'Experienced backend developer with expertise in building scalable, high-performance systems.';
+    const skills = document.getElementById('skills').value || 'Go, PostgreSQL, MongoDB, Redpanda, Reindexer, Docker, Kubernetes';
+    
+    const resumeHtml = `
+        <div class="generated-resume">
+            <h2>${name}</h2>
+            <h3>${title}</h3>
+            
+            <h4>Professional Summary</h4>
+            <p>${summary}</p>
+            
+            <h4>Technical Skills</h4>
+            <p>${skills}</p>
+            
+            <h4>Experience</h4>
+            <p>Relevant backend development experience...</p>
+            
+            <h4>Education</h4>
+            <p>Your educational background...</p>
+            
+            <button class="practice-btn" onclick="downloadResume()">Download as PDF</button>
+        </div>
+    `;
+    
+    document.getElementById('resume-output').innerHTML = resumeHtml;
+}
+
+// Function to submit interview answer
+function submitInterviewAnswer() {
+    alert('Answer submitted! In a real application, this would be evaluated.');
+}
+
+// Function to show interview feedback
+function showInterviewFeedback() {
+    const feedback = `
+        <div class="feedback">
+            <h3>Interview Feedback</h3>
+            <p><strong>Strengths:</strong> Good understanding of scalability concepts, appropriate use of database technologies.</p>
+            <p><strong>Areas for improvement:</strong> Consider mentioning caching strategies, API design, and monitoring solutions.</p>
+            <p><strong>Additional suggestions:</strong> Discuss consistency models, backup strategies, and security considerations.</p>
+        </div>
+    `;
+    
+    document.querySelector('.interview-actions').insertAdjacentHTML('afterend', feedback);
+}
+
+// Function to download resume
+function downloadResume() {
+    alert('Resume would be downloaded as PDF in a real application.');
+}
+
+// Function to run Go code (simulated)
+function runGoCode() {
+    // In a real implementation, this would send the code to a Go execution service
+    // For this demo, we'll simulate the output
+    const code = document.getElementById('go-editor') ? document.getElementById('go-editor').value : 
+                 document.getElementById('editor') ? document.getElementById('editor').value : '';
+    const output = document.getElementById('go-output') || document.getElementById('output');
+    
+    if (output) {
+        output.innerHTML = "Program executed successfully!<br>Output: The answer is: 42";
+    }
+}
+
+// Function to run database query (simulated)
+function runDbQuery() {
+    // In a real implementation, this would execute the query against a database
+    // For this demo, we'll simulate the output
+    const query = document.getElementById('db-editor').value;
+    const output = document.getElementById('db-output');
+    
+    if (output) {
+        output.innerHTML = "Query executed successfully!<br>Rows returned: 5";
+    }
+}
+
+// Function to add Go playground functionality
+function addGoPlaygroundFunctionality() {
+    // Already handled by the runGoCode function
+    console.log('Go playground functionality initialized');
+}
+
+// Function to add database playground functionality
+function addDbPlaygroundFunctionality() {
+    // Already handled by the runDbQuery function
+    console.log('Database playground functionality initialized');
 }
 
 // Close modal when clicking outside of it
